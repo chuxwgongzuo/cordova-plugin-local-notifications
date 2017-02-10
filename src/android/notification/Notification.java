@@ -100,6 +100,20 @@ public class Notification {
     public Options getOptions () {
         return options;
     }
+    
+    /**
+     * Get notification builder.
+     */
+    public NotificationCompat.Builder getBuilder () {
+        return builder;
+    }
+ 
+    /**
+     * Set notification builder.
+     */
+    public void setBuilder (NotificationCompat.Builder newBuilder) {
+        builder = newBuilder;
+    }
 
     /**
      * Get notification ID.
@@ -319,7 +333,7 @@ public class Notification {
     /**
      * Notification manager for the application.
      */
-    private NotificationManager getNotMgr () {
+    public NotificationManager getNotMgr () {
         return (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
     }
