@@ -98,8 +98,40 @@ public class Manager {
 
         return notification;
     }
+
+    /**
+     * Clear local notification specified by ID.
+     *
+     * @param id
+     *      The notification ID
+     * @param updates
+     *      JSON object with notification options
+     * @param receiver
+     *      Receiver to handle the trigger event
+     */
+    public Notification update (int id, JSONObject updates, Class<?> receiver) {
+        Notification notification = get(id);
+
+        if (notification == null)
+            return null;
+
+        if (updates.optBoolean("progress", false)) {
+            return updateProgress(id, updates, receiver);
+        }
+
+        notification.cancel();
+
+        JSONObject options = mergeJSONObjects(
+                notification.getOptions().getDict(), updates);
+
+        try {
+            options.put("updated", true);
+        } catch (JSONException ignore) {}
+
+        return schedule(options, receiver);
+    }
     
-    public Notification updateProgress(int id, JSONObject updates, Class<?> receiver) {
+    private Notification updateProgress(int id, JSONObject updates, Class<?> receiver) {
         Notification notification = get(id);
 
         if (notification != null) {
@@ -122,34 +154,6 @@ public class Manager {
             } catch (JSONException ignore) {}
         }
         return notification;
-    }
-
-    /**
-     * Clear local notification specified by ID.
-     *
-     * @param id
-     *      The notification ID
-     * @param updates
-     *      JSON object with notification options
-     * @param receiver
-     *      Receiver to handle the trigger event
-     */
-    public Notification update (int id, JSONObject updates, Class<?> receiver) {
-        Notification notification = get(id);
-
-        if (notification == null)
-            return null;
-
-        notification.cancel();
-
-        JSONObject options = mergeJSONObjects(
-                notification.getOptions().getDict(), updates);
-
-        try {
-            options.put("updated", true);
-        } catch (JSONException ignore) {}
-
-        return schedule(options, receiver);
     }
 
     /**

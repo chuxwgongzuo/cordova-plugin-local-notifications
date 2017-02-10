@@ -22,7 +22,7 @@
 /**
  * Executes all queued events.
  */
-exports.deviceready  = function () {
+exports.deviceready = function () {
     exports.core.deviceready();
 };
 
@@ -54,22 +54,6 @@ exports.schedule = function (success, error, notifications) {
  */
 exports.update = function (success, error, notifications) {
     exports.core.update(notifications);
-
-    success();
-};
-
-/**
- * Update a progress of a existing notifications specified by IDs in options.
- *
- * @param {Function} success
- *      Success callback
- * @param {Function} error
- *      Error callback
- * @param {Object[]} notifications
- *      Array of local notifications
- */
-exports.updateProgress = function (success, error, notifications) {
-    exports.core.updateProgress(notifications);
 
     success();
 };

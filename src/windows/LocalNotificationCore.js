@@ -151,23 +151,11 @@ proxy.core = {
             var updates = notifications[i],
                 options = getAll(updates.id || '0')[0];
 
-            this.updateLocalNotification(options, updates);
-            this.fireEvent('update', options);
-        }
-    },
-    
-   /**
-     * Updates progress of existing notifications specified by IDs in options.
-     *
-     * @param {Object[]} notifications
-     *      Array of local notifications
-     */
-    updateProgress: function (notifications) {
-        for (var i = 0; i < notifications.length; i++) {
-            var updates = notifications[i],
-                options = getAll(updates.id || '0')[0];
-
-            this.updateProgressLocalNotification(options, updates);
+            if (options['progress']) {
+                this.updateProgressLocalNotification(options, updates);
+            } else {
+                this.updateLocalNotification(options, updates);
+            }
             this.fireEvent('update', options);
         }
     },
@@ -188,15 +176,15 @@ proxy.core = {
         this.cancelLocalNotification(notification.id);
         this.scheduleLocalNotification(notification);
     },
-    
-   /**
-     * Updates a progress of a single local notification.
-     *
-     * @param {Object} notification
-     *      The local notification
-     * @param {Object} updates
-     *      Updated properties
-     */
+
+    /**
+      * Updates a progress of a single local notification.
+      *
+      * @param {Object} notification
+      *      The local notification
+      * @param {Object} updates
+      *      Updated properties
+      */
     updateProgressLocalNotification: function (notification, updates) {
         for (var key in updates) {
             notification[key] = updates[key];
@@ -356,7 +344,7 @@ proxy.core = {
             ids = [];
 
         for (var i = 0; i < toasts.length; i++) {
-            var toast   = toasts[i],
+            var toast = toasts[i],
                 toastId = this.getToastId(toast);
 
             if (ids.indexOf(toastId) == -1) {
