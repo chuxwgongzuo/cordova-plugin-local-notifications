@@ -118,7 +118,7 @@ public class Builder {
         Uri sound     = options.getSoundUri();
         int smallIcon = options.getSmallIcon();
         int ledColor  = options.getLedColor();
-        Boolean progress = option.getProgress();
+        Boolean progress = options.getProgress();
         Boolean removeProgress = options.getRemoveProgress();
         NotificationCompat.Builder builder;
 
