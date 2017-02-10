@@ -111,6 +111,7 @@ public class Manager {
                 int maxProgress = Integer.parseInt(options.getString("maxProgress"));
                 int currentProgress = Integer.parseInt(updates.getString("currentProgress"));
                 
+                notification.getBuilder().setSound(null);
                 notification.getBuilder().setProgress(maxProgress, currentProgress, false);
                 if (Build.VERSION.SDK_INT <= 15) {
                     // Notification for HoneyComb to ICS
