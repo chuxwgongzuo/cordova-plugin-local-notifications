@@ -66,7 +66,7 @@ exports.setDefaults = function (newDefaults) {
  *                          registering or checking for permission
  */
 exports.schedule = function (msgs, callback, scope, args) {
-    var fn = function(granted) {
+    var fn = function (granted) {
 
         if (!granted) return;
 
@@ -90,42 +90,6 @@ exports.schedule = function (msgs, callback, scope, args) {
 };
 
 /**
- * Update existing notifications with progress specified by IDs in options.
- *
- * @param {Object} notifications
- *      The notification properties to update
- * @param {Function} callback
- *      A function to be called after the notification has been updated
- * @param {Object?} scope
- *      The scope for the callback function
- * @param {Object?} args
- *      skipPermission:true schedules the notifications immediatly without
- *                          registering or checking for permission
- */
-exports.updateProgress = function (msgs, callback, scope, args) {
-    var fn = function(granted) {
-
-        if (!granted) return;
-
-        var notifications = Array.isArray(msgs) ? msgs : [msgs];
-
-        for (var i = 0; i < notifications.length; i++) {
-            var notification = notifications[i];
-
-            this.convertProperties(notification);
-        }
-
-        this.exec('updateProgress', notifications, callback, scope);
-    };
-
-    if (args && args.skipPermission) {
-        fn.call(this, true);
-    } else {
-        this.registerPermission(fn, this);
-    }
-};
-
-/**
  * Update existing notifications specified by IDs in options.
  *
  * @param {Object} notifications
@@ -139,7 +103,7 @@ exports.updateProgress = function (msgs, callback, scope, args) {
  *                          registering or checking for permission
  */
 exports.update = function (msgs, callback, scope, args) {
-    var fn = function(granted) {
+    var fn = function (granted) {
 
         if (!granted) return;
 
@@ -322,9 +286,9 @@ exports.get = function () {
         args.unshift([]);
     }
 
-    var ids      = args[0],
+    var ids = args[0],
         callback = args[1],
-        scope    = args[2];
+        scope = args[2];
 
     if (!Array.isArray(ids)) {
         this.exec('getSingle', Number(ids), callback, scope);
@@ -366,9 +330,9 @@ exports.getScheduled = function () {
         args.unshift([]);
     }
 
-    var ids      = args[0],
+    var ids = args[0],
         callback = args[1],
-        scope    = args[2];
+        scope = args[2];
 
     if (!Array.isArray(ids)) {
         ids = [ids];
@@ -414,9 +378,9 @@ exports.getTriggered = function () {
         args.unshift([]);
     }
 
-    var ids      = args[0],
+    var ids = args[0],
         callback = args[1],
-        scope    = args[2];
+        scope = args[2];
 
     if (!Array.isArray(ids)) {
         ids = [ids];
