@@ -145,7 +145,6 @@ public class Manager {
                 
                 notification.getBuilder().setSound(null);
                 notification.getBuilder().setContentTitle(updates.getString("title"));
-                notification.getBuilder().setContentText(updates.getString("text"));
                 notification.getBuilder().setProgress(maxProgress, currentProgress, false);
                 if (Build.VERSION.SDK_INT <= 15) {
                     // Notification for HoneyComb to ICS
